@@ -1,0 +1,18 @@
+--- origsrc/SDL_mixer-1.2.11/configure.in	2009-11-17 02:09:50.309827900 -0600
++++ src/SDL_mixer-1.2.11/configure.in	2009-11-17 02:12:49.600940500 -0600
+@@ -41,7 +41,6 @@ AC_SUBST(LT_REVISION)
+ AC_SUBST(LT_AGE)
+ 
+ dnl Detect the canonical build and host environments
+-AC_CONFIG_AUX_DIRS($srcdir/build-scripts)
+ dnl AC_CANONICAL_HOST
+ 
+ dnl Check for tools
+@@ -570,7 +569,6 @@ AC_HELP_STRING([--enable-music-mp3-share
+               [], [enable_music_mp3_shared=yes])
+ if test x$enable_music_mp3 = xyes; then
+     SMPEG_VERSION=0.4.3
+-    AM_PATH_SMPEG($SMPEG_VERSION, have_smpeg=yes, have_smpeg=no)
+     if test x$have_smpeg = xyes; then
+         case "$host" in
+             *-*-darwin*)

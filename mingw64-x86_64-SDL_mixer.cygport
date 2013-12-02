@@ -1,0 +1,35 @@
+CROSS_HOST="x86_64-w64-mingw32"
+inherit cross
+
+NAME="mingw64-x86_64-SDL_mixer"
+VERSION=1.2.12
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="SDL audio loading library for Win64 toolchain"
+DESCRIPTION="This is the Simple DirectMedia Layer, a general API that provides
+low level access to audio, keyboard, mouse, joystick, 3D hardware via OpenGL,
+and 2D framebuffer across multiple platforms."
+HOMEPAGE="http://www.libsdl.org/projects/SDL_mixer/"
+SRC_URI="${HOMEPAGE}/release/SDL_mixer-${VERSION}.tar.gz"
+SRC_DIR="SDL_mixer-${VERSION}"
+PATCH_URI="
+	http://pkgs.fedoraproject.org/cgit/SDL_mixer.git/plain/SDL_mixer-MikMod-1.patch
+	http://pkgs.fedoraproject.org/cgit/SDL_mixer.git/plain/SDL_mixer-MikMod-2.patch
+	1.2.11-autoconf.patch
+	1.2.12-windres.patch
+"
+
+# The included libtool macros have been hacked for the *-*-mingw* target to
+# produce SDL.dll (instead of the usual libSDL-1-2-0.dll) and to set
+# deplibs_check_method=pass_all (to allow linking with -ldxguid, which is
+# static).  Therefore, we must use these macros and the corresponding ltmain.sh.
+NO_LIBTOOLIZE=1
+ACLOCAL_FLAGS="-I acinclude"
+
+CYGCONF_ARGS="
+	--disable-music-mp3
+	--enable-music-native-midi
+	--disable-music-timidity-midi
+"
+
+KEEP_LA_FILES="none"
